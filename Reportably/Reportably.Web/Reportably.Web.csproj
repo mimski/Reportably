@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-Reportably.Web-05EE8045-3536-4D2F-9FD2-8F4F21CD50DF</UserSecretsId>
+    <StartupObject>Reportably.Web.Program</StartupObject>
   </PropertyGroup>
 
 
