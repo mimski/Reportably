@@ -33,11 +33,6 @@ namespace Reportably.Web.Infrastructure
         => app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-              );
-
-            endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
@@ -46,7 +41,7 @@ namespace Reportably.Web.Infrastructure
 
         //public static IApplicationBuilder SeedData(this IApplicationBuilder app)
         //   => app.SeedDataAsync().GetAwaiter().GetResult();
-
+      
 
         //public static async Task<IApplicationBuilder> SeedDataAsync(this IApplicationBuilder app)
         //{
