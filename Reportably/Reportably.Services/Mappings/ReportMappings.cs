@@ -35,7 +35,7 @@ namespace Reportably.Services.Mappings
                     Id = model.Id,
                     Title = model.Title,
                     Summary = model.Summary,
-                    Author = model.Summary,
+                    Author = model.Author,
                     PublicationDate = model.PublicationDate,
                     CreatedOn = model.CreatedOn,
                     ModifiedOn = model.ModifiedOn,
