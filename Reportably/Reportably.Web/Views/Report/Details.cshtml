@@ -1,0 +1,85 @@
+﻿@model Reportably.Web.Models.ReportViewModel
+@*@inject SignInManager<User> SignInManager*@
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+@if (TempData["Error"] != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                @TempData["Error"]
+            </div>
+        </div>
+    </div>
+}
+<div class="shadow p-3 mb-5 bg-white rounded">
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Summary)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Summary)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Author)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.PublicationDate)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.PublicationDate)
+            </dd>
+            @*@if (User.IsInRole("Administrator"))
+                {*@
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.CreatedOn)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.ModifiedOn)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DeletedOn)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.DeletedOn)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.IsDeleted)
+            </dd>
+            @*}*@
+        </dl>
+    </div>
+</div>
+    @*@if (User.IsInRole("Administrator"))
+        {
+            <div>
+                <a class="btn btn-primary" title="Edit" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a class="btn btn-primary" title="Delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
+                <a asp-action="Index">Back to Reports</a>
+            </div>
+        }*@
