@@ -31,5 +31,12 @@ namespace Reportably.Services.Implementations
             var reports = await this.context.Reports.AsNoTracking().ToListAsync(cancellationToken);
             return reports.ToService();
         }
+
+        public async Task<Report> FindByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var report = await this.context.Reports.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
+
+            return report.ToService();
+        }
     }
 }

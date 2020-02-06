@@ -1,4 +1,5 @@
 ﻿using Reportably.Services.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,5 +11,7 @@ namespace Reportably.Services.Contracts
         Task<Report> AddAsync(Report report, CancellationToken cancellationToken);
 
         Task<IReadOnlyCollection<Report>> GetAllAsync(CancellationToken cancellationToken);
+
+        Task<Report> FindByIdAsync(Guid id, CancellationToken cancellationToken);
     }
 }
