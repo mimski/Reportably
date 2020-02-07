@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Reportably.Services.Tests.ReportServiceTests
 {
     [TestClass]
-    public class Create_Should
+    public class AddAsync_Should
     {
         [TestMethod]
         public async Task SaveReportInDatabase()
