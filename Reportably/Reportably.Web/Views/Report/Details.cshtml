@@ -75,11 +75,23 @@
         </dl>
     </div>
 </div>
-    @*@if (User.IsInRole("Administrator"))
-        {
-            <div>
-                <a class="btn btn-primary" title="Edit" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                <a class="btn btn-primary" title="Delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
-                <a asp-action="Index">Back to Reports</a>
-            </div>
-        }*@
+
+@*<div class="col px-1">
+    <form asp-controller="Report" asp-action="FileDowload" method="get" asp-route-id="@Model.Id">
+        <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+        <div class="form-group">
+            <button type="submit" title="Reserve the book" class="btn btn-primary btn-lg btn-block">Reserve</button>
+        </div>
+    </form>
+</div>*@
+
+@Html.ActionLink("Click here to download", "FileDownload", new {reportId = @Model.Id})
+
+@*@if (User.IsInRole("Administrator"))
+    {
+        <div>
+            <a class="btn btn-primary" title="Edit" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+            <a class="btn btn-primary" title="Delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
+            <a asp-action="Index">Back to Reports</a>
+        </div>
+    }*@
