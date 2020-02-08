@@ -22,7 +22,8 @@ namespace Reportably.Services.Mappings
                     CreatedOn = entity.CreatedOn,
                     ModifiedOn = entity.ModifiedOn,
                     DeletedOn = entity.DeletedOn,
-                    IsDeleted = entity.IsDeleted
+                    IsDeleted = entity.IsDeleted,
+                    DownloadCount = entity.DownloadCount
                 }
                 : null;
         }
@@ -40,7 +41,8 @@ namespace Reportably.Services.Mappings
                     CreatedOn = model.CreatedOn,
                     ModifiedOn = model.ModifiedOn,
                     DeletedOn = model.DeletedOn,
-                    IsDeleted = model.IsDeleted
+                    IsDeleted = model.IsDeleted,
+                    DownloadCount = model.DownloadCount
                 }
                 : null;
         }
