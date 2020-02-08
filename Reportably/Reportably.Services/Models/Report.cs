@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -28,5 +29,9 @@ namespace Reportably.Services.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public IFormFile File { get; set; }
+
+        public long DownloadCount { get; set; }
     }
 }
