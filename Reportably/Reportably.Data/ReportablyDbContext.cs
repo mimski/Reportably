@@ -13,6 +13,8 @@ namespace Reportably.Web.Data
 
         public DbSet<ReportEntity> Reports { get; set; }
 
+        public DbSet<UploadedFileEntity> UploadedFiles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //builder.Entity<ReportEntity>()

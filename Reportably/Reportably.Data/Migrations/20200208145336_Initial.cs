@@ -58,7 +58,9 @@ namespace Reportably.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    UploadedFile = table.Column<Guid>(nullable: false),
+                    DownloadCount = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,8 +113,8 @@ namespace Reportably.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -156,8 +158,8 @@ namespace Reportably.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -167,6 +169,28 @@ namespace Reportably.Data.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UploadedFiles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Lenght = table.Column<long>(nullable: false),
+                    FileContent = table.Column<byte[]>(nullable: true),
+                    ContentType = table.Column<string>(nullable: true),
+                    ReportId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadedFiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UploadedFiles_Reports_ReportId",
+                        column: x => x.ReportId,
+                        principalTable: "Reports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -209,6 +233,11 @@ namespace Reportably.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UploadedFiles_ReportId",
+                table: "UploadedFiles",
+                column: "ReportId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -229,13 +258,16 @@ namespace Reportably.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Reports");
+                name: "UploadedFiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Reports");
         }
     }
 }

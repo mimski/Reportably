@@ -97,12 +97,10 @@ namespace Reportably.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -139,12 +137,10 @@ namespace Reportably.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -171,6 +167,9 @@ namespace Reportably.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("DownloadCount")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -190,9 +189,40 @@ namespace Reportably.Data.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
+                    b.Property<Guid>("UploadedFile")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("Reportably.Entities.UploadedFileEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("FileContent")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<long>("Lenght")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ReportId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReportId");
+
+                    b.ToTable("UploadedFiles");
                 });
 
             modelBuilder.Entity("Reportably.Entities.User", b =>
@@ -307,6 +337,15 @@ namespace Reportably.Data.Migrations
                     b.HasOne("Reportably.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Reportably.Entities.UploadedFileEntity", b =>
+                {
+                    b.HasOne("Reportably.Entities.ReportEntity", "Report")
+                        .WithMany()
+                        .HasForeignKey("ReportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -36,5 +36,9 @@ namespace Reportably.Entities
         public bool IsDeleted { get ; set; }
        
         public DateTime? DeletedOn { get; set; }
+
+        public Guid UploadedFile { get; set; }
+
+        public long DownloadCount { get; set; }
     }
 }
