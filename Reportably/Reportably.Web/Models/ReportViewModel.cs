@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Reportably.Web.Models
@@ -7,15 +8,17 @@ namespace Reportably.Web.Models
     {
         public Guid Id { get; set; }
 
-        [Required]
-        [MaxLength(255)]
+     
+        [MaxLength(255, ErrorMessage = "Title must be less than 256 symbols.")]
+        [Required(ErrorMessage = "Please enter a title for this report.")]
+        [Display(Name = "Title")]
         public string Title { get; set; }
 
         [Required]
         [MaxLength(1000)]
         public string Summary { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please select a publication date.")]
         [Display(Name = "Publication Date")]
         [DataType(DataType.Date)]
         public DateTime PublicationDate { get; set; }
@@ -44,5 +47,9 @@ namespace Reportably.Web.Models
         [Display(Name = "Deleted")]
         [DataType(DataType.Date)]
         public bool IsDeleted { get; set; }
+
+        public IFormFile File { get; set; }
+
+        public long DownloadCount { get; set; }
     }
 }
