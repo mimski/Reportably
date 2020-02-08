@@ -9,6 +9,7 @@ namespace Reportably.Web.Infrastructure
         public static IServiceCollection AddBusiness(this IServiceCollection services)
         {
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IUploadedFileService, UploadedFileService>();
 
             return services;
         }
