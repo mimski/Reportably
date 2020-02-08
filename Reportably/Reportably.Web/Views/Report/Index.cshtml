@@ -17,111 +17,113 @@
     </div>
     @*}*@
 </div>
+<div class="row">
+    <div class="col-md-12">
+        @*<div class="container-fluid">*@
+            <div class="shadow p-3 mb-5 bg-white rounded">
+                @*<div class="panel-body">*@
+                    <table class="table table-striped table-hover">
 
-<div class="container-fluid">
-    <div class="shadow p-3 mb-5 bg-white rounded">
-        <div class="panel-body">
-            <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Author)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PublicationDate)
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="py-3 alert-info">
+                                    <td onclick="popUpModal('@item.Id')" style="cursor: pointer">
+                                        <a href="#" class="text-decoration-none">@Html.DisplayFor(modelItem => item.Title)</a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Author)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PublicationDate)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary my-1" title="Report details" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    </td>
+                                </tr>
+                                <div class="modal @item.Id" id="my_modal">
+                                    <div class="modal-dialog modal-lg border rounded ">
+                                        <div id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Title)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Author)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PublicationDate)
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr class="py-3">
-                            <td onclick="popUpModal('@item.Id')" style="cursor: pointer">
-                                <a href="#" class="text-decoration-none">@Html.DisplayFor(modelItem => item.Title)</a>
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Author)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PublicationDate)
-                            </td>
-                            <td>
-                                <a class="btn btn-primary my-1" title="Report details" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            </td>
-                        </tr>
-                        <div class="modal @item.Id" id="my_modal">
-                            <div class="modal-dialog modal-lg border rounded ">
-                                <div id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center p-3 bg-light mb-2">
-                                            <h4 class="modal-title w-100 font-weight-bold"><i class="fa fa-user-circle-o" aria-hidden="true"></i>@Html.DisplayFor(modelItem => item.Title)</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mx-2">
-                                                <h6 class="modal-title w-100 font-weight-bold">
-                                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                                    @Html.DisplayNameFor(modelItem => item.Summary)
-                                                </h6>
-                                                <p class="col" style="overflow-wrap:break-word">
-                                                    @Html.DisplayFor(modelItem => item.Summary)
-                                                </p>
-                                                <h6 class="modal-title w-100 font-weight-bold">
-                                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                                    @Html.DisplayNameFor(modelItem => item.Author)
-                                                </h6>
-                                                <p class="col">
-                                                    @Html.DisplayFor(modelItem => item.Author)
-                                                </p>
-                                                <h6 class="modal-title w-100 font-weight-bold">
-                                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                                    @Html.DisplayNameFor(modelItem => item.PublicationDate)
-                                                </h6>
-                                                <p class="col" style="overflow-wrap:break-word">
-                                                    @Html.DisplayFor(modelItem => item.PublicationDate)
-                                                </p>
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center p-3 bg-light mb-2">
+                                                    <h4 class="modal-title w-100 font-weight-bold"><i class="fa fa-user-circle-o" aria-hidden="true"></i>@Html.DisplayFor(modelItem => item.Title)</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body mx-2">
+                                                    <h6 class="modal-title w-100 font-weight-bold">
+                                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                                        @Html.DisplayNameFor(modelItem => item.Summary)
+                                                    </h6>
+                                                    <p class="col" style="overflow-wrap:break-word">
+                                                        @Html.DisplayFor(modelItem => item.Summary)
+                                                    </p>
+                                                    <h6 class="modal-title w-100 font-weight-bold">
+                                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                                        @Html.DisplayNameFor(modelItem => item.Author)
+                                                    </h6>
+                                                    <p class="col">
+                                                        @Html.DisplayFor(modelItem => item.Author)
+                                                    </p>
+                                                    <h6 class="modal-title w-100 font-weight-bold">
+                                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                                        @Html.DisplayNameFor(modelItem => item.PublicationDate)
+                                                    </h6>
+                                                    <p class="col" style="overflow-wrap:break-word">
+                                                        @Html.DisplayFor(modelItem => item.PublicationDate)
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    }
-                </tbody>
-            </table>
-        </div>
+                            }
+                        </tbody>
+                    </table>
+                @*</div>*@
+            </div>
+        @*</div>*@
     </div>
-</div>
-
-@section scripts {
-    <script>
-        let reportId;
-        function popUpModal(id) {
-            reportId = id;
-            $(`.${id}`).modal('show');
-        }
-        $('#my_modal').on('show.bs.modal', function (e) {
-            $(e.currentTarget).find('input[name="ID"]').val(reportId);
-        })
-    </script>
-    <script>
-        $(document).on("click", "#contentPager a", function () {
-            $.ajax({
-                url: $(this).attr("href"),
-                type: 'GET',
-                cache: false,
-                success: function (result) {
-                    $('#content').html(result);
-                }
+    </div>
+    @section scripts {
+        <script>
+            let reportId;
+            function popUpModal(id) {
+                reportId = id;
+                $(`.${id}`).modal('show');
+            }
+            $('#my_modal').on('show.bs.modal', function (e) {
+                $(e.currentTarget).find('input[name="ID"]').val(reportId);
+            })
+        </script>
+        <script>
+            $(document).on("click", "#contentPager a", function () {
+                $.ajax({
+                    url: $(this).attr("href"),
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+                        $('#content').html(result);
+                    }
+                });
+                return false;
             });
-            return false;
-        });
-    </script>
-}
+        </script>
+    }
