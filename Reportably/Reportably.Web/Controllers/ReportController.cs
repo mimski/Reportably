@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Reportably.Services.Contracts;
 using Reportably.Web.Areas.Reports.Mappings;
@@ -12,10 +14,12 @@ namespace Reportably.Web.Areas.Reports.Controllers
     public class ReportController : Controller
     {
         private readonly IReportService reportService;
+        private readonly IUploadedFileService uploadedFileService;
 
-        public ReportController(IReportService reportService)
+        public ReportController(IReportService reportService, IUploadedFileService uploadedFileService)
         {
             this.reportService = reportService ?? throw new ArgumentNullException(nameof(reportService));
+            this.uploadedFileService = uploadedFileService ?? throw new ArgumentNullException(nameof(uploadedFileService));
         }
 
         [HttpGet]
@@ -38,13 +42,19 @@ namespace Reportably.Web.Areas.Reports.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ReportViewModel reportViewModel, CancellationToken cancellationToken)
         {
+            if (reportViewModel.File.ContentType != "application/pdf")
+            {
+                this.ModelState.AddModelError(string.Empty, "Please upload only .pdf file");
+            }
             if (!this.ModelState.IsValid)
             {
+              
                 //throw new ArgumentException("Invalid input!");
                 return this.View();
             }
 
             var report = await this.reportService.AddAsync(reportViewModel.ToServiceModel(), cancellationToken);
+            await this.uploadedFileService.AddAsync(reportViewModel.File, report.Id, cancellationToken);
 
             return RedirectToAction(nameof(Index));
         }
@@ -65,5 +75,22 @@ namespace Reportably.Web.Areas.Reports.Controllers
             return View("Details", report.ToViewModel());
         }
 
+        [HttpGet]
+        //[Authorize]
+        public async Task<FileResult> FileDownload(Guid reportId, CancellationToken cancellationToken)
+        {
+            // current session user to check property for email verification is true
+            // Security - if current != 
+            //if (HttpContext.)
+            //{
+            // badquest
+            //}
+
+
+            var report = await this.uploadedFileService.GetFileAsync(reportId, cancellationToken);
+                //BusinessLayer.GetDocumentsByDocument(documentId, AuthenticationHandler.HostProtocol).FirstOrDefault();
+
+            return File(report.FileContent, report.ContentType, true);
+        }
     }
 }
