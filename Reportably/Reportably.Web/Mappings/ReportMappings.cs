@@ -17,7 +17,10 @@ namespace Reportably.Web.Areas.Reports.Mappings
                 Summary = entity.Summary,
                 Author = entity.Author,
                 PublicationDate = entity.PublicationDate,
-                CreatedOn = entity.CreatedOn
+                CreatedOn = entity.CreatedOn,
+                File = entity.File,
+                DownloadCount = entity.DownloadCount
+
             } : null;
         }
 
@@ -31,6 +34,12 @@ namespace Reportably.Web.Areas.Reports.Mappings
                 Author = viewModel.Author,
                 PublicationDate = viewModel.PublicationDate,
                 CreatedOn = viewModel.CreatedOn,
+                File = viewModel.File,
+                DownloadCount = viewModel.DownloadCount,
+                DeletedOn = viewModel.DeletedOn,
+                IsDeleted = viewModel.IsDeleted,
+                ModifiedOn = viewModel.ModifiedOn
+               
             } : null;
         }
 
