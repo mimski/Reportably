@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Reportably.Data.Configurations;
 using Reportably.Entities;
-using System.Reflection;
 
 namespace Reportably.Web.Data
 {
@@ -18,7 +18,7 @@ namespace Reportably.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfiguration(new ReportEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
