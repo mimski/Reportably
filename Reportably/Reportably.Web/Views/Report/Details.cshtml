@@ -45,8 +45,14 @@
             <dd class="col-sm-9">
                 @Html.DisplayFor(model => model.PublicationDate)
             </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.DownloadCount)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.DownloadCount)
+            </dd>
             @*@if (User.IsInRole("Administrator"))
-                {*@
+        {*@
             <dt class="col-sm-3">
                 @Html.DisplayNameFor(model => model.CreatedOn)
             </dt>

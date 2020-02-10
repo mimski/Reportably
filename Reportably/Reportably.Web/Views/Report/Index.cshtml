@@ -36,26 +36,32 @@
                                     @Html.DisplayNameFor(model => model.PublicationDate)
                                 </th>
                                 <th>
+                                    @Html.DisplayNameFor(model => model.DownloadCount)
+                                </th>
+                                <th>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr class="py-3 alert-info">
-                                    <td onclick="popUpModal('@item.Id')" style="cursor: pointer">
-                                        <a href="#" class="text-decoration-none">@Html.DisplayFor(modelItem => item.Title)</a>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Author)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.PublicationDate)
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary my-1" title="Report details" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                    </td>
-                                </tr>
+                            <tr class="py-3 alert-info">
+                                <td onclick="popUpModal('@item.Id')" style="cursor: pointer">
+                                    <a href="#" class="text-decoration-none">@Html.DisplayFor(modelItem => item.Title)</a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Author)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PublicationDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DownloadCount)
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary my-1" title="Report details" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                </td>
+                            </tr>
                                 <div class="modal @item.Id" id="my_modal">
                                     <div class="modal-dialog modal-lg border rounded ">
                                         <div id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
