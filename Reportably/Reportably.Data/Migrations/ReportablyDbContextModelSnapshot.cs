@@ -172,7 +172,9 @@ namespace Reportably.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("DownloadCount")
-                        .HasColumnType("decimal(20,0)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(20,0)")
+                        .HasDefaultValue(0m);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

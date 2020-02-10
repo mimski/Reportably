@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Reportably.Entities;
+using System.Reflection;
 
 namespace Reportably.Web.Data
 {
@@ -15,14 +16,11 @@ namespace Reportably.Web.Data
 
         public DbSet<UploadedFileEntity> UploadedFiles { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //builder.Entity<ReportEntity>()
-            //    .HasOne(user => user.User)
-            //    .WithMany(user => user.Reports)
-            //    .HasForeignKey(user => user.UserId);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

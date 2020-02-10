@@ -10,7 +10,7 @@ using Reportably.Web.Data;
 namespace Reportably.Data.Migrations
 {
     [DbContext(typeof(ReportablyDbContext))]
-    [Migration("20200210141931_Initial")]
+    [Migration("20200210223149_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,7 +174,9 @@ namespace Reportably.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("DownloadCount")
-                        .HasColumnType("decimal(20,0)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(20,0)")
+                        .HasDefaultValue(0m);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

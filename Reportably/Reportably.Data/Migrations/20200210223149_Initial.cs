@@ -60,7 +60,7 @@ namespace Reportably.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     UploadedFile = table.Column<Guid>(nullable: false),
-                    DownloadCount = table.Column<decimal>(nullable: false)
+                    DownloadCount = table.Column<decimal>(nullable: false, defaultValue: 0m)
                 },
                 constraints: table =>
                 {
