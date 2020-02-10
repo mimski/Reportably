@@ -38,5 +38,22 @@ namespace Reportably.Services.Implementations
 
             return report.ToService();
         }
+
+        public async Task<bool> UpdateDownloadCount(Guid reportId, CancellationToken cancellationToken)
+        {
+            var existingReport = await this.context.Reports.FirstOrDefaultAsync(report => report.Id == reportId, cancellationToken);
+            if (existingReport != null)
+            {
+                existingReport.DownloadCount += 1;
+
+                this.context.Reports.Update(existingReport);
+                await this.context.SaveChangesAsync(cancellationToken);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
