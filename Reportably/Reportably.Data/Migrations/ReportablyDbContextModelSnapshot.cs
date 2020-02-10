@@ -171,8 +171,8 @@ namespace Reportably.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("DownloadCount")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("DownloadCount")
+                        .HasColumnType("decimal(20,0)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

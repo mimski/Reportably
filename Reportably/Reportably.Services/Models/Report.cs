@@ -32,6 +32,6 @@ namespace Reportably.Services.Models
 
         public IFormFile File { get; set; }
 
-        public long DownloadCount { get; set; }
+        public ulong DownloadCount { get; set; }
     }
 }

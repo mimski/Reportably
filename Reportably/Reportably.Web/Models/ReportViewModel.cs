@@ -30,8 +30,6 @@ namespace Reportably.Web.Models
         //[Required]
         //public string UserId { get; set; }
 
-        //public User User { get; set; }
-
         [Display(Name = "Created On")]
         [DataType(DataType.Date)]
         public DateTime? ModifiedOn { get; set; }
@@ -50,6 +48,6 @@ namespace Reportably.Web.Models
 
         public IFormFile File { get; set; }
 
-        public long DownloadCount { get; set; }
+        public ulong DownloadCount { get; set; }
     }
 }

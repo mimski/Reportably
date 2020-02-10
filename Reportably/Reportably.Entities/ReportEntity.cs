@@ -39,6 +39,6 @@ namespace Reportably.Entities
 
         public Guid UploadedFile { get; set; }
 
-        public long DownloadCount { get; set; }
+        public ulong DownloadCount { get; set; }
     }
 }
