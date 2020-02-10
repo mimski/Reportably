@@ -39,7 +39,7 @@ namespace Reportably.Services.Implementations
             return report.ToService();
         }
 
-        public async Task<bool> UpdateDownloadCount(Guid reportId, CancellationToken cancellationToken)
+        public async Task<bool> UpdateDownloadCountAsync(Guid reportId, CancellationToken cancellationToken)
         {
             var existingReport = await this.context.Reports.FirstOrDefaultAsync(report => report.Id == reportId, cancellationToken);
             if (existingReport != null)

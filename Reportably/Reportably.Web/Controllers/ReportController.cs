@@ -97,7 +97,7 @@ namespace Reportably.Web.Areas.Reports.Controllers
             var report = await this.uploadedFileService.GetFileAsync(reportId, cancellationToken);
             //BusinessLayer.GetDocumentsByDocument(documentId, AuthenticationHandler.HostProtocol).FirstOrDefault();
 
-            await this.reportService.UpdateDownloadCount(reportId, cancellationToken);
+            await this.reportService.UpdateDownloadCountAsync(reportId, cancellationToken);
 
             //return File(report.FileContent, report.ContentType, true);
             return File(report.FileContent, System.Net.Mime.MediaTypeNames.Application.Octet, "report.pdf");

@@ -14,6 +14,6 @@ namespace Reportably.Services.Contracts
 
         Task<Report> FindByIdAsync(Guid id, CancellationToken cancellationToken);
 
-        Task<bool> UpdateDownloadCount(Guid reportId, CancellationToken cancellationToken);
+        Task<bool> UpdateDownloadCountAsync(Guid reportId, CancellationToken cancellationToken);
     }
 }
