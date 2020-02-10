@@ -15,7 +15,8 @@ namespace Reportably.Services.Tests.ReportServiceTests
         [TestMethod]
         public async Task IncrementDownloadCountWithOne()
         {
-            ulong testDownloadCount = 1;
+            ulong testDownloadCount = 7;
+
             var testReport = new ReportEntity()
             {
                 DownloadCount = testDownloadCount
@@ -25,15 +26,13 @@ namespace Reportably.Services.Tests.ReportServiceTests
 
             using (var actContext = new ReportablyDbContext(options))
             {
-                var SUT = new ReportService(actContext);
-
-                await actContext.Reports.AddAsync(testReport);
+                actContext.Reports.Add(testReport);
                 await actContext.SaveChangesAsync();
 
                 var report = await actContext.Reports.FirstOrDefaultAsync();
 
-                var a = await SUT.UpdateDownloadCountAsync(report.Id, new CancellationToken());
-                Assert.IsTrue(true == a);
+                var SUT = new ReportService(actContext);
+                await SUT.UpdateDownloadCountAsync(report.Id, new CancellationToken());
             }
 
             using (var assertContext = new ReportablyDbContext(options))
@@ -43,7 +42,6 @@ namespace Reportably.Services.Tests.ReportServiceTests
                 ulong expected = testDownloadCount + 1;
 
                 Assert.AreEqual(expected, report.DownloadCount);
-              
             }
         }
 
@@ -54,15 +52,15 @@ namespace Reportably.Services.Tests.ReportServiceTests
 
             using (var actContext = new ReportablyDbContext(options))
             {
-                var SUT = new ReportService(actContext);
-
-                await actContext.Reports.AddAsync(new ReportEntity());
+                actContext.Reports.Add(new ReportEntity());
                 await actContext.SaveChangesAsync();
 
                 var report = await actContext.Reports.FirstOrDefaultAsync();
 
+                var SUT = new ReportService(actContext);
                 var result = await SUT.UpdateDownloadCountAsync(report.Id, new CancellationToken());
-                Assert.IsTrue(true == result);
+
+                Assert.IsTrue(result);
             }
         }
 
@@ -73,12 +71,12 @@ namespace Reportably.Services.Tests.ReportServiceTests
 
             using (var actContext = new ReportablyDbContext(options))
             {
-                var SUT = new ReportService(actContext);
-
                 Guid reportId = new Guid("CD1D4E6B-D86D-4AA1-2661-08D7AE3670FB");
 
+                var SUT = new ReportService(actContext);
                 var result = await SUT.UpdateDownloadCountAsync(reportId, new CancellationToken());
-                Assert.IsTrue(false == result);
+
+                Assert.IsFalse(result);
             }
         }
     }

@@ -16,30 +16,22 @@ namespace Reportably.Services.Tests.ReportServiceTests
         [TestMethod]
         public async Task ReturnReportInstance_WhenReportExistInDb()
         {
-            var testReport = new Report();
-            var testReport2 = new Report();
-            var testReport3 = new Report();
-            var cancellationToken = new CancellationToken();
-
             var options = TestUtilities.GetOptions(nameof(ReturnReportInstance_WhenReportExistInDb));
-
-            ReportEntity report;
 
             using (var actContext = new ReportablyDbContext(options))
             {
-                var SUT = new ReportService(actContext);
-
-                await SUT.AddAsync(testReport, cancellationToken);
-                await SUT.AddAsync(testReport2, cancellationToken);
+                actContext.Reports.Add(new ReportEntity());
+                actContext.Reports.Add(new ReportEntity());
 
                 await actContext.SaveChangesAsync();
-
-                report = await actContext.Reports.FirstAsync();
             }
+
             using (var assertContext = new ReportablyDbContext(options))
             {
+                var report = await assertContext.Reports.FirstAsync();
+
                 var SUT = new ReportService(assertContext);
-                var result = await SUT.FindByIdAsync(report.Id,cancellationToken);
+                var result = await SUT.FindByIdAsync(report.Id, new CancellationToken());
 
                 Assert.IsInstanceOfType(result, typeof(Report));
             }
@@ -48,23 +40,14 @@ namespace Reportably.Services.Tests.ReportServiceTests
         [TestMethod]
         public async Task ReturnNull_WhenReportDoesNotExistInDb()
         {
-            var testReport = new Report();
-            var testReport2 = new Report();
-            var testReport3 = new Report();
-            var cancellationToken = new CancellationToken();
-
             var options = TestUtilities.GetOptions(nameof(ReturnNull_WhenReportDoesNotExistInDb));
 
-            using (var actContext = new ReportablyDbContext(options))
-            {
-                var SUT = new ReportService(actContext);
-            }
             using (var assertContext = new ReportablyDbContext(options))
             {
                 var SUT = new ReportService(assertContext);
-                var result = await SUT.FindByIdAsync(new Guid(), cancellationToken);
+                var result = await SUT.FindByIdAsync(new Guid(), new CancellationToken());
 
-                Assert.IsTrue(result == null);
+                Assert.IsNull(result);
             }
         }
     }
