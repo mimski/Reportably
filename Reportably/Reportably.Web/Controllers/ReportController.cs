@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Reportably.Services.Contracts;
 using Reportably.Web.Areas.Reports.Mappings;
@@ -23,6 +24,7 @@ namespace Reportably.Web.Areas.Reports.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
             var result = await this.reportService.GetAllAsync(cancellationToken);
@@ -38,19 +40,18 @@ namespace Reportably.Web.Areas.Reports.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Administrator, Librarian")]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ReportViewModel reportViewModel, CancellationToken cancellationToken)
         {
+            if (!this.ModelState.IsValid)
+            {
+                //throw new ArgumentException("Invalid input!");
+                return this.View();
+            }
             if (reportViewModel.File.ContentType != "application/pdf")
             {
                 this.ModelState.AddModelError(string.Empty, "Please upload only .pdf file");
-            }
-            if (!this.ModelState.IsValid)
-            {
-              
-                //throw new ArgumentException("Invalid input!");
-                return this.View();
             }
 
             var report = await this.reportService.AddAsync(reportViewModel.ToServiceModel(), cancellationToken);
@@ -86,13 +87,20 @@ namespace Reportably.Web.Areas.Reports.Controllers
             // badquest
             //}
 
+            //var userid = UserManager.FindByEmail(model.UserName).Id;  // it gives null exception.
+            //if (!UserManager.IsEmailConfirmed(userid))
+            //{
+            //    return View("EmailNotConfirmed");
+            //    //if the user's email is not confirmed, return to the view page that inform that the user hasn't confirmed his email
+            //}
 
             var report = await this.uploadedFileService.GetFileAsync(reportId, cancellationToken);
             //BusinessLayer.GetDocumentsByDocument(documentId, AuthenticationHandler.HostProtocol).FirstOrDefault();
 
             await this.reportService.UpdateDownloadCount(reportId, cancellationToken);
 
-            return File(report.FileContent, report.ContentType, true);
+            //return File(report.FileContent, report.ContentType, true);
+            return File(report.FileContent, System.Net.Mime.MediaTypeNames.Application.Octet, "report.pdf");
         }
     }
 }

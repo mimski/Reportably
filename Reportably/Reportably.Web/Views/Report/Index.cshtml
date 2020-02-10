@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Reportably.Web.Models.ReportViewModel>
-@*@inject SignInManager<User> SignInManager*@
+@inject SignInManager<User> SignInManager
 
 @{
     ViewData["Title"] = "Index";
@@ -8,14 +8,14 @@
 <h1>Reports</h1>
 
 <div class="row">
-    @*@if (User.IsInRole("Administrator"))
-        {*@
+    @if (User.IsInRole("Administrator"))
+        {
     <div class="col col-sm-2 text-left ">
         <p>
             <a class="btn btn-outline-secondary" title="Add report" asp-action="Create"><b>Add</b></a>
         </p>
     </div>
-    @*}*@
+    }
 </div>
 <div class="row">
     <div class="col-md-12">
