@@ -16,19 +16,15 @@ namespace Reportably.Services.Tests.ReportServiceTests
         [TestMethod]
         public async Task SaveReportInDatabase()
         {
-            var testReport = new Report();
-            var cancellationToken = new CancellationToken();
-
             var options = TestUtilities.GetOptions(nameof(SaveReportInDatabase));
 
             using (var actContext = new ReportablyDbContext(options))
             {
                 var SUT = new ReportService(actContext);
 
-                await SUT.AddAsync(testReport, cancellationToken);
-
-                await actContext.SaveChangesAsync();
+                await SUT.AddAsync(new Report(), new CancellationToken());
             }
+
             using (var assertContext = new ReportablyDbContext(options))
             {
                 Assert.AreEqual(1, assertContext.Reports.Count());
@@ -39,11 +35,11 @@ namespace Reportably.Services.Tests.ReportServiceTests
         public async Task SetPassedTitleValueOfReport()
         {
             var testTitle = "Test Title";
+
             var testReport = new Report()
             {
                 Title = testTitle,
             };
-            var cancellationToken = new CancellationToken();
 
             var options = TestUtilities.GetOptions(nameof(SetPassedTitleValueOfReport));
 
@@ -51,13 +47,11 @@ namespace Reportably.Services.Tests.ReportServiceTests
             {
                 var SUT = new ReportService(actContext);
 
-                await SUT.AddAsync(testReport, cancellationToken);
-
-                await actContext.SaveChangesAsync();
+                await SUT.AddAsync(testReport, new CancellationToken());
             }
             using (var assertContext = new ReportablyDbContext(options))
             {
-                var report = await assertContext.Reports.FirstOrDefaultAsync(r => r.Title == testTitle);
+                var report = await assertContext.Reports.FirstOrDefaultAsync();
 
                 Assert.AreEqual(testTitle, report.Title);
             }
@@ -67,11 +61,11 @@ namespace Reportably.Services.Tests.ReportServiceTests
         public async Task SetPassedSummaryValueOfReport()
         {
             var testSummary = "Test Summary";
+
             var testReport = new Report()
             {
                 Summary = testSummary,
             };
-            var cancellationToken = new CancellationToken();
 
             var options = TestUtilities.GetOptions(nameof(SetPassedSummaryValueOfReport));
 
@@ -79,13 +73,11 @@ namespace Reportably.Services.Tests.ReportServiceTests
             {
                 var SUT = new ReportService(actContext);
 
-                await SUT.AddAsync(testReport, cancellationToken);
-
-                await actContext.SaveChangesAsync();
+                await SUT.AddAsync(testReport, new CancellationToken());
             }
             using (var assertContext = new ReportablyDbContext(options))
             {
-                var report = await assertContext.Reports.FirstOrDefaultAsync(r => r.Summary == testSummary);
+                var report = await assertContext.Reports.FirstOrDefaultAsync();
 
                 Assert.AreEqual(testSummary, report.Summary);
             }
@@ -95,11 +87,11 @@ namespace Reportably.Services.Tests.ReportServiceTests
         public async Task SetPassedAuthorValueOfReport()
         {
             var testAuthor = "Test Author Name";
+
             var testReport = new Report()
             {
                 Author = testAuthor,
             };
-            var cancellationToken = new CancellationToken();
 
             var options = TestUtilities.GetOptions(nameof(SetPassedAuthorValueOfReport));
 
@@ -107,13 +99,12 @@ namespace Reportably.Services.Tests.ReportServiceTests
             {
                 var SUT = new ReportService(actContext);
 
-                await SUT.AddAsync(testReport, cancellationToken);
-
-                await actContext.SaveChangesAsync();
+                await SUT.AddAsync(testReport, new CancellationToken());
             }
+
             using (var assertContext = new ReportablyDbContext(options))
             {
-                var report = await assertContext.Reports.FirstOrDefaultAsync(r => r.Author == testAuthor);
+                var report = await assertContext.Reports.FirstOrDefaultAsync();
 
                 Assert.AreEqual(testAuthor, report.Author);
             }
@@ -123,11 +114,11 @@ namespace Reportably.Services.Tests.ReportServiceTests
         public async Task SetPassedPublicationDateValueOfReport()
         {
             var testPublicationDate = new DateTime(2020,2,2);
+
             var testReport = new Report()
             {
                 PublicationDate = testPublicationDate,
             };
-            var cancellationToken = new CancellationToken();
 
             var options = TestUtilities.GetOptions(nameof(SetPassedPublicationDateValueOfReport));
 
@@ -135,15 +126,31 @@ namespace Reportably.Services.Tests.ReportServiceTests
             {
                 var SUT = new ReportService(actContext);
 
-                await SUT.AddAsync(testReport, cancellationToken);
-
-                await actContext.SaveChangesAsync();
+                await SUT.AddAsync(testReport, new CancellationToken());
             }
+
             using (var assertContext = new ReportablyDbContext(options))
             {
-                var report = await assertContext.Reports.FirstOrDefaultAsync(r => r.PublicationDate == testPublicationDate);
+                var report = await assertContext.Reports.FirstOrDefaultAsync();
 
                 Assert.AreEqual(testPublicationDate, report.PublicationDate);
+            }
+        }
+
+        [TestMethod]
+        public async Task ReturnReportInstance()
+        {
+            var testReport = new Report();
+
+            var options = TestUtilities.GetOptions(nameof(ReturnReportInstance));
+
+            using (var actContext = new ReportablyDbContext(options))
+            {
+                var SUT = new ReportService(actContext);
+
+                var result = await SUT.AddAsync(testReport, new CancellationToken());
+
+                Assert.IsInstanceOfType(result, typeof(Report));
             }
         }
     }
