@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Reportably.Entities;
 using Reportably.Web.Utils;
+using System;
 
 namespace Reportably.Web.Infrastructure
 {
@@ -39,9 +40,72 @@ namespace Reportably.Web.Infrastructure
             endpoints.MapRazorPages();
         });
 
+        public static void UpdateDatabase(this IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ReportablyDbContext>();
+                context.Database.Migrate();
+
+                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+
+                Task.Run(async () =>
+                {
+                    var adminName = "Administrator";
+                    var adminEmail = "admin@reportably.com";
+
+                    var exists = await roleManager.RoleExistsAsync(adminName);
+
+                    if (!exists)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole
+                        {
+                            Name = adminName
+                        });
+                    }
+
+                    var memberName = "Member";
+
+                    var existsMember = await roleManager.RoleExistsAsync(memberName);
+
+                    if (!existsMember)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole
+                        {
+                            Name = memberName
+                        });
+                    }
+
+                    var adminUser = await userManager.FindByIdAsync("61ddd55e-10b9-42e4-a733-fa74e8559679");
+
+                    if (adminUser == null)
+                    {
+                        var admin1User = new User
+                        {
+                            Id = "61ddd55e-10b9-42e4-a733-fa74e8559679",
+                            EmailConfirmed = true,
+                            UserName = adminEmail,
+                            Email = adminEmail,
+                            SecurityStamp = "4GFB2JI6EFBAAY4BFO7PJM2XRYTIM3GP",
+                            ConcurrencyStamp = "a8d70f77-66e0-479e-aa4c-3167d542fcfc",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@REPORTABLY.COM"
+
+                        };
+
+                        await userManager.CreateAsync(admin1User, "Admin100!");
+                        await userManager.AddToRoleAsync(admin1User, adminName);
+                    }
+                })
+                .GetAwaiter()
+                .GetResult();
+            }
+        }
+
         //public static IApplicationBuilder SeedData(this IApplicationBuilder app)
         //   => app.SeedDataAsync().GetAwaiter().GetResult();
-      
+
 
         //public static async Task<IApplicationBuilder> SeedDataAsync(this IApplicationBuilder app)
         //{

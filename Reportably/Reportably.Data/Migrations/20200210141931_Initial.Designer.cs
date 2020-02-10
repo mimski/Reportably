@@ -10,7 +10,7 @@ using Reportably.Web.Data;
 namespace Reportably.Data.Migrations
 {
     [DbContext(typeof(ReportablyDbContext))]
-    [Migration("20200210120917_Initial")]
+    [Migration("20200210141931_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

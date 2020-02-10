@@ -34,24 +34,24 @@ namespace Reportably.Web
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<ReportablyDbContext>();
 
-             services.Configure<IdentityOptions>(options =>
-            {
-                // Password settings
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 0;
+            // services.Configure<IdentityOptions>(options =>
+            //{
+            //    // Password settings
+            //    options.Password.RequireDigit = true;
+            //    options.Password.RequireLowercase = true;
+            //    //options.Password.RequireNonAlphanumeric = true;
+            //    options.Password.RequireUppercase = true;
+            //    options.Password.RequiredLength = 6;
+            //    options.Password.RequiredUniqueChars = 0;
 
-                // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
+            //    // Lockout settings
+            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            //    options.Lockout.MaxFailedAccessAttempts = 5;
+            //    options.Lockout.AllowedForNewUsers = true;
 
-                // User settings
-                options.User.RequireUniqueEmail = true;
-            });
+            //    // User settings
+            //    options.User.RequireUniqueEmail = true;
+            //});
 
             //services.AddIdentity<IdentityUser, IdentityRole>(options =>
             //{
@@ -88,6 +88,8 @@ namespace Reportably.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UpdateDatabase();
+
             app.UseExceptionHandling(env);
 
             app.UseHttpsRedirection();
