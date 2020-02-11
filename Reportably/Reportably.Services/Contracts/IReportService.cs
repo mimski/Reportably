@@ -17,5 +17,7 @@ namespace Reportably.Services.Contracts
         Task<bool> UpdateDownloadCountAsync(Guid reportId, CancellationToken cancellationToken);
 
         Task<ReportSystem> GetTotalReportsbCountAsync(CancellationToken cancellationToken);
+
+        Task<IReadOnlyCollection<Report>> Search(string title, string summary, string author, string option);
     }
 }

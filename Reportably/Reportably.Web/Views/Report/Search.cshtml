@@ -1,0 +1,70 @@
+﻿@model Reportably.Web.Models.SearchViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Search</h1>
+<div class="row">
+    <div class="col">
+        <form asp-controller="Report" asp-action="Search" method="post">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Title</label>
+                <input placeholder="Search title" asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Summary" class="control-label">Summary</label>
+                <input placeholder="Search in summary" asp-for="Summary" class="form-control" />
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>  <div class="form-group">
+                <label asp-for="Author" class="control-label">Author</label>
+                <input placeholder="Search author" asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Option" class="control-label">Options</label>
+                <input placeholder="and/or" asp-for="Option" class="form-control" />
+                <span asp-validation-for="Option" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <button id="searchbutton" class="btn btn-outline-secondary btn-lg btn-block px-0" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="content">
+</div>
+
+@section Scripts{
+    <script>
+        function search()
+        {
+            $.ajax({
+                url: $(this).attr("href"),
+                type: 'POST',
+                cache: false,
+                data: jQuery.param({
+                    title: document.getElementById("Title").value,
+                    summary: document.getElementById("Summary").value,
+                    author: document.getElementById("Author").value,
+                    option: document.getElementById("Option").value,
+                    __RequestVerificationToken: gettoken()
+                }),
+                success: function (result) {
+                    $('#content').html(result);
+                }
+            });
+            return false;
+        }
+        function gettoken()
+        {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+        }
+        $(document).on("click", "#searchbutton", search);
+        $(document).on("click", "#contentPager a", search);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+}

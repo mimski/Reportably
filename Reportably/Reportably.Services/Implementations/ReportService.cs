@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Reportably.Entities;
 using Reportably.Services.Contracts;
 using Reportably.Services.Mappings;
 using Reportably.Services.Models;
@@ -70,6 +71,67 @@ namespace Reportably.Services.Implementations
             };
 
             return reportSystem;
+        }
+
+        public async Task<IReadOnlyCollection<Report>> Search(string title, string summary, string author, string option)
+        {
+            if (option.Equals("and"))
+            {
+                IQueryable<ReportEntity> query = this.context.Set<ReportEntity>();
+
+                if (title != null)
+                {
+                    query = query.Where(report => report.Title.ToLower().Contains(title.ToLower()));
+                }
+
+                if (summary != null)
+                {
+                    query = query.Where(report => report.Summary.ToLower().Contains(summary.ToLower()));
+                }
+
+                if (author != null)
+                {
+                    query = query.Where(report => report.Author.ToLower().Contains(author.ToLower()));
+                }
+
+                var result = await query.ToListAsync();
+                return result.ToService();
+            }
+            else if (option.Equals("or"))
+            {
+                HashSet<ReportEntity> hashBook = new HashSet<ReportEntity>();
+                if (title != null)
+                {
+                    var reportsByTitle = await this.context.Reports.Where(report => report.Title.Contains(title)).ToListAsync();
+                    foreach (var reportByTitle in reportsByTitle)
+                    {
+                        hashBook.Add(reportByTitle);
+                    }
+                }
+
+                if (summary != null)
+                {
+                    var Summaries = await this.context.Reports.Where(report => report.Summary.Contains(summary)).ToListAsync();
+                    foreach (var reportSummary in Summaries)
+                    {
+                        hashBook.Add(reportSummary);
+                    }
+                }
+                if (author != null)
+                {
+                    var reportsByAuthor = await this.context.Reports.Where(report => report.Author.Contains(author)).ToListAsync();
+
+                    foreach (var reportByAuthor in reportsByAuthor)
+                    {
+                        hashBook.Add(reportByAuthor);
+                    }
+                }
+                return hashBook.ToService();
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
     }
 }

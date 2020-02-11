@@ -63,7 +63,6 @@ namespace Reportably.Web.Areas.Reports.Controllers
         [HttpGet]
         [HttpGet("/details")]
         [Route("{id}")]
-        //[Authorize]
         public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
         {
             var report = await this.reportService.FindByIdAsync(id, cancellationToken);
@@ -95,12 +94,37 @@ namespace Reportably.Web.Areas.Reports.Controllers
             //}
 
             var report = await this.uploadedFileService.GetFileAsync(reportId, cancellationToken);
-            //BusinessLayer.GetDocumentsByDocument(documentId, AuthenticationHandler.HostProtocol).FirstOrDefault();
 
             await this.reportService.UpdateDownloadCountAsync(reportId, cancellationToken);
 
             //return File(report.FileContent, report.ContentType, true);
             return File(report.FileContent, System.Net.Mime.MediaTypeNames.Application.Octet, "report.pdf");
+        }
+
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(SearchViewModel searchViewModel)
+        {
+            string title = searchViewModel.Title;
+            string summary = searchViewModel.Summary;
+            string author = searchViewModel.Author;
+            string option;
+            if (searchViewModel.Option != null)
+            {
+                option = searchViewModel.Option;
+            }
+            else
+            {
+                option = "and";
+            }
+            var result = await this.reportService.Search(title, summary, author, option);
+
+            return PartialView("_SearchResult", result.ToViewModel());
         }
     }
 }

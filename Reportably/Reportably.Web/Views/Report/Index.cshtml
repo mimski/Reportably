@@ -9,13 +9,16 @@
 
 <div class="row">
     @if (User.IsInRole("Administrator"))
-        {
-    <div class="col col-sm-2 text-left ">
-        <p>
-            <a class="btn btn-outline-secondary" title="Add report" asp-action="Create"><b>Add</b></a>
-        </p>
-    </div>
+    {
+        <div class="col col-sm-2 text-left ">
+            <p>
+                <a class="btn btn-outline-secondary" title="Add report" asp-action="Create"><b>Add</b></a>
+            </p>
+        </div>
     }
+    <div class="col text-right">
+        <a class="btn btn-outline-secondary" asp-action="Search">Search report</a>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -45,17 +48,17 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr class="py-3 alert-info">
-                                <td onclick="popUpModal('@item.Id')" style="cursor: pointer">
+                            <tr class="py-3 alert-info" style="overflow-wrap:break-word">
+                                <td onclick="popUpModal('@item.Id')" style="cursor:pointer; overflow-wrap:break-word" >
                                     <a href="#" class="text-decoration-none">@Html.DisplayFor(modelItem => item.Title)</a>
                                 </td>
-                                <td>
+                                <td style="overflow-wrap:break-word">
                                     @Html.DisplayFor(modelItem => item.Author)
                                 </td>
-                                <td>
+                                <td style="overflow-wrap:break-word">
                                     @Html.DisplayFor(modelItem => item.PublicationDate)
                                 </td>
-                                <td>
+                                <td style="overflow-wrap:break-word">
                                     @Html.DisplayFor(modelItem => item.DownloadCount)
                                 </td>
                                 <td>
@@ -68,13 +71,13 @@
 
                                             <div class="modal-content">
                                                 <div class="modal-header text-center p-3 bg-light mb-2">
-                                                    <h4 class="modal-title w-100 font-weight-bold"><i class="fa fa-user-circle-o" aria-hidden="true"></i>@Html.DisplayFor(modelItem => item.Title)</h4>
+                                                    <h4 class="modal-title w-100 font-weight-bold" style="overflow-wrap:break-word"><i class="fa fa-user-circle-o" aria-hidden="true"></i>@Html.DisplayFor(modelItem => item.Title)</h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body mx-2">
-                                                    <h6 class="modal-title w-100 font-weight-bold">
+                                                    <h6 class="modal-title w-100 font-weight-bold" style="overflow-wrap:break-word">
                                                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                                         @Html.DisplayNameFor(modelItem => item.Summary)
                                                     </h6>
@@ -85,7 +88,7 @@
                                                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                                         @Html.DisplayNameFor(modelItem => item.Author)
                                                     </h6>
-                                                    <p class="col">
+                                                    <p class="col" style="overflow-wrap:break-word">
                                                         @Html.DisplayFor(modelItem => item.Author)
                                                     </p>
                                                     <h6 class="modal-title w-100 font-weight-bold">

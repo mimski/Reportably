@@ -1,0 +1,30 @@
+﻿@model IReadOnlyCollection<ReportViewModel>
+@{
+    ViewData["Title"] = "SearchResult";
+}
+<br />
+<div class="row border-bottom px-2 text-center">
+    <h2><i>Search results</i></h2>
+</div>
+<div class="row border-bottom font-weight-bold">
+    <div class="col">Title</div>
+    <div class="col">Summary</div>
+    <div class="col">Author</div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="border-bottom">
+
+        <div class="row">
+            <div class="col" style="overflow-wrap:break-word">@item.Title</div>
+            <div class="col" style="overflow-wrap:break-word"> @item.Summary</div>
+            <div class="col" style="overflow-wrap:break-word"> @item.Author</div>
+        </div>
+        <div class="row">
+            <div class="col px-1">
+                <a class="btn btn-primary btn-block my-1" title="Report details" asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </div>
+        </div>
+    </div>
+}
