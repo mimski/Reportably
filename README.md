@@ -22,3 +22,4 @@ The system persist/log all downloads of report documents.
 
 ![image](https://user-images.githubusercontent.com/44443424/74248537-68109280-4cf0-11ea-93e6-7784378b0367.png)
 
+![image](https://user-images.githubusercontent.com/44443424/74248660-97bf9a80-4cf0-11ea-9595-efe990f835ed.png)
