@@ -16,3 +16,4 @@ Web app based on ASP.NET Core MVC 3.1 for listing company reports
 Each report have title, summary, publication date, author and a .pdf file associated with it.
 The system persist/log all downloads of report documents. 
  
+![image](https://user-images.githubusercontent.com/44443424/74248297-0bad7300-4cf0-11ea-859e-0ff0da00653d.png)
