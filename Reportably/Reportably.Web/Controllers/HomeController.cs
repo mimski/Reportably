@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reportably.Services.Contracts;
 using Reportably.Web.Mappings;
@@ -18,6 +19,8 @@ namespace Reportably.Web.Controllers
             this.reportService = reportService ?? throw new ArgumentNullException(nameof(reportService));
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
             var result = await this.reportService.GetTotalReportsbCountAsync(cancellationToken);

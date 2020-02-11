@@ -33,7 +33,7 @@ namespace Reportably.Web.Areas.Reports.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -77,7 +77,7 @@ namespace Reportably.Web.Areas.Reports.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public async Task<FileResult> FileDownload(Guid reportId, CancellationToken cancellationToken)
         {
             // current session user to check property for email verification is true
