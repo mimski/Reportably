@@ -1,12 +1,14 @@
-﻿@{
+﻿@model Reportably.Web.Models.ReportSystemViewModel
+
+@{
     ViewData["Title"] = "Home Page";
+    ViewData["Image"] = @"images\" + "animated-presentation-software-header-wide.gif";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="display-4">
+    <img src="@ViewData["Image"]" class="img-fluid" alt="Responsive image">
 </div>
 
 <div class="jumbotron">
-    <h1 class="display-1 font-weight-bold text-center"><b>Reportably</b></h1>
+    <h1 class="display-1 font-weight-bold text-center"><b>Reports: @Html.DisplayFor(model => model.TotalReports)</b></h1>
 </div>

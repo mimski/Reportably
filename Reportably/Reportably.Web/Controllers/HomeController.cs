@@ -1,15 +1,28 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Reportably.Services.Contracts;
+using Reportably.Web.Mappings;
 using Reportably.Web.Models;
 
 namespace Reportably.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IReportService reportService;
+
+        public HomeController(IReportService reportService)
         {
-            return View();
+            this.reportService = reportService ?? throw new ArgumentNullException(nameof(reportService));
+        }
+
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
+        {
+            var result = await this.reportService.GetTotalReportsbCountAsync(cancellationToken);
+
+            return View("Index", result.ToViewModel());
         }
 
         public IActionResult Privacy()
