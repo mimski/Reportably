@@ -1,5 +1,4 @@
 ﻿@model Reportably.Web.Models.ReportViewModel
-@*@inject SignInManager<User> SignInManager*@
 
 @{
     ViewData["Title"] = "Details";
@@ -51,53 +50,17 @@
             <dd class="col-sm-9">
                 @Html.DisplayFor(model => model.DownloadCount)
             </dd>
-            @*@if (User.IsInRole("Administrator"))
-        {*@
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.CreatedOn)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.ModifiedOn)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.ModifiedOn)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.DeletedOn)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.DeletedOn)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.IsDeleted)
-            </dd>
-            @*}*@
         </dl>
     </div>
 </div>
 
-@*<div class="col px-1">
-    <form asp-controller="Report" asp-action="FileDowload" method="get" asp-route-id="@Model.Id">
-        <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-        <div class="form-group">
-            <button type="submit" title="Reserve the book" class="btn btn-primary btn-lg btn-block">Reserve</button>
-        </div>
-    </form>
-</div>*@
+@if (this.User.IsInRole("Member") || this.User.IsInRole("Administrator"))
+{
+    <div class="jumbotron">
+        <h1 class="display-4 text-center">@Html.ActionLink("Click here to download", "FileDownload", new { reportId = @Model.Id })</h1>
+    </div>
+}
 
-@Html.ActionLink("Click here to download", "FileDownload", new {reportId = @Model.Id})
-
-@*@if (User.IsInRole("Administrator"))
-    {
-        <div>
-            <a class="btn btn-primary" title="Edit" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-            <a class="btn btn-primary" title="Delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
-            <a asp-action="Index">Back to Reports</a>
-        </div>
-    }*@
+<div>
+    <a asp-controller="Report" asp-action="Index">Back to Reports</a>
+</div>
