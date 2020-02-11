@@ -91,7 +91,6 @@ namespace Reportably.Web.Infrastructure
                             ConcurrencyStamp = "a8d70f77-66e0-479e-aa4c-3167d542fcfc",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@REPORTABLY.COM"
-
                         };
 
                         await userManager.CreateAsync(admin1User, "Admin100!");
@@ -102,10 +101,6 @@ namespace Reportably.Web.Infrastructure
                 .GetResult();
             }
         }
-
-        //public static IApplicationBuilder SeedData(this IApplicationBuilder app)
-        //   => app.SeedDataAsync().GetAwaiter().GetResult();
-
 
         //public static async Task<IApplicationBuilder> SeedDataAsync(this IApplicationBuilder app)
         //{

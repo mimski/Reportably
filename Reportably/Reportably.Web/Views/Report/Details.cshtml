@@ -54,7 +54,7 @@
     </div>
 </div>
 
-@if (this.User.IsInRole("Member") || this.User.IsInRole("Administrator"))
+@if (User.Identity.IsAuthenticated)
 {
     <div class="jumbotron">
         <h1 class="display-4 text-center">@Html.ActionLink("Click here to download", "FileDownload", new { reportId = @Model.Id })</h1>
