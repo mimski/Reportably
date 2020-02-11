@@ -1,6 +1,8 @@
 # Reportably
 Web app based on ASP.NET Core MVC 3.1 for listing company reports
 
+![image](https://user-images.githubusercontent.com/44443424/74246647-8c1ea480-4ced-11ea-849d-98a56432124f.png)
+
 ## Project Description
 
 * **Public part** -  accessible without authentication
