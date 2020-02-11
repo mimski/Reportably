@@ -42,7 +42,7 @@ namespace Reportably.Services.Implementations
                     {
                         FileContent = fileBytes,
                         Id = new Guid(),
-                        Name = name,/*uploadedFile.Name,*/
+                        Name = name,
                         ReportId = reportId,
                         Lenght = uploadedFile.Length, 
                         ContentType = uploadedFile.ContentType,
@@ -57,9 +57,8 @@ namespace Reportably.Services.Implementations
             await this.context.SaveChangesAsync(cancellationToken);
 
             return true;
-
-
         }
+
         public async Task<UploadedFile> GetFileAsync(Guid reportId, CancellationToken cancellationToken)
         {
             var file = await this.context.UploadedFiles.AsNoTracking().FirstOrDefaultAsync(r => r.ReportId == reportId, cancellationToken);

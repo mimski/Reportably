@@ -46,7 +46,6 @@ namespace Reportably.Web.Areas.Reports.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                //throw new ArgumentException("Invalid input!");
                 return this.View();
             }
             if (reportViewModel.File == null)
@@ -91,15 +90,7 @@ namespace Reportably.Web.Areas.Reports.Controllers
 
             if (!loggedUser.IsEmailConfirmed)
             {
-                return RedirectToAction("Index", new { ReturnUrl = "~/Account/LogOff" });
-
-                //return RedirectToAction();
-
-                //HttpContext.Server.TransferRequest("~/Account/LogOff");
-                //return RedirectToAction("Login");
-                //return LocalRedirect("~/Account/ConfirmEmail");
-                // return RedirectToAction("Index");
-                //if the user's email is not confirmed, return to the view page that inform that the user hasn't confirmed his email
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -108,7 +99,9 @@ namespace Reportably.Web.Areas.Reports.Controllers
                 await this.reportService.UpdateDownloadCountAsync(reportId, cancellationToken);
 
                 //return File(report.FileContent, report.ContentType, true); // open the file
-                return File(report.FileContent, System.Net.Mime.MediaTypeNames.Application.Octet, "report.pdf");
+                //return File(report.FileContent, System.Net.Mime.MediaTypeNames.Application.Octet, "report.pdf");
+
+                return File(report.FileContent, System.Net.Mime.MediaTypeNames.Application.Octet, report.Name);
             }
         }
 

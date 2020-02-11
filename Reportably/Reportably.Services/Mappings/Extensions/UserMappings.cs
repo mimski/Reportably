@@ -10,7 +10,8 @@ namespace Reportably.Services.Mappings.Extensions
             return entity != null
                 ? new UserModel
                 {
-                    IsEmailConfirmed = entity.EmailConfirmed
+                    IsEmailConfirmed = entity.EmailConfirmed,
+                    Email = entity.Email
                 }
                 : null;
         }
