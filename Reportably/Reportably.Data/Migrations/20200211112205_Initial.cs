@@ -55,10 +55,6 @@ namespace Reportably.Data.Migrations
                     Summary = table.Column<string>(maxLength: 1000, nullable: false),
                     PublicationDate = table.Column<DateTime>(nullable: false),
                     Author = table.Column<string>(maxLength: 100, nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
                     UploadedFile = table.Column<Guid>(nullable: false),
                     DownloadCount = table.Column<decimal>(nullable: false, defaultValue: 0m)
                 },

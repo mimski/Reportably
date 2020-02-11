@@ -165,22 +165,10 @@ namespace Reportably.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("DownloadCount")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(20,0)")
                         .HasDefaultValue(0m);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("PublicationDate")
                         .HasColumnType("datetime2");

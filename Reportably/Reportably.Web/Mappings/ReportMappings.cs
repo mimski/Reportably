@@ -17,7 +17,6 @@ namespace Reportably.Web.Areas.Reports.Mappings
                 Summary = entity.Summary,
                 Author = entity.Author,
                 PublicationDate = entity.PublicationDate,
-                CreatedOn = entity.CreatedOn,
                 File = entity.File,
                 DownloadCount = entity.DownloadCount
 
@@ -33,13 +32,8 @@ namespace Reportably.Web.Areas.Reports.Mappings
                 Summary = viewModel.Summary,
                 Author = viewModel.Author,
                 PublicationDate = viewModel.PublicationDate,
-                CreatedOn = viewModel.CreatedOn,
                 File = viewModel.File,
                 DownloadCount = viewModel.DownloadCount,
-                DeletedOn = viewModel.DeletedOn,
-                IsDeleted = viewModel.IsDeleted,
-                ModifiedOn = viewModel.ModifiedOn
-               
             } : null;
         }
 
@@ -50,17 +44,17 @@ namespace Reportably.Web.Areas.Reports.Mappings
                 return Array.Empty<ReportViewModel>();
             }
 
-            var loanApplications = new ReportViewModel[entities.Count];
+            var reports = new ReportViewModel[entities.Count];
 
             var index = 0;
 
             foreach (var entity in entities)
             {
-                loanApplications[index] = entity.ToViewModel();
+                reports[index] = entity.ToViewModel();
                 ++index;
             }
 
-            return new ReadOnlyCollection<ReportViewModel>(loanApplications);
+            return new ReadOnlyCollection<ReportViewModel>(reports);
         }
     }
 }

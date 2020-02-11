@@ -10,6 +10,7 @@ namespace Reportably.Web.Infrastructure
         {
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IUploadedFileService, UploadedFileService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

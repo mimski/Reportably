@@ -41,17 +41,17 @@ namespace Reportably.Web.Mappings
                 return Array.Empty<UploadedFileViewModel>();
             }
 
-            var loanApplications = new UploadedFileViewModel[entities.Count];
+            var files = new UploadedFileViewModel[entities.Count];
 
             var index = 0;
 
             foreach (var entity in entities)
             {
-                loanApplications[index] = entity.ToViewModel();
+                files[index] = entity.ToViewModel();
                 ++index;
             }
 
-            return new ReadOnlyCollection<UploadedFileViewModel>(loanApplications);
+            return new ReadOnlyCollection<UploadedFileViewModel>(files);
         }
     }
 }

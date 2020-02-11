@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Reportably.Services.Models
 {
@@ -16,19 +14,6 @@ namespace Reportably.Services.Models
         public DateTime PublicationDate { get; set; }
 
         public string Author { get; set; }
-
-        //[Required]
-        //public string UserId { get; set; }
-
-        //public User User { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
-
-        public DateTime? CreatedOn { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
 
         public IFormFile File { get; set; }
 

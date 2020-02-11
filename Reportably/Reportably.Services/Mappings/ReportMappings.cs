@@ -1,9 +1,7 @@
 ﻿using Reportably.Entities;
 using Reportably.Services.Mappings.Extensions;
 using Reportably.Services.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Reportably.Services.Mappings
 {
@@ -19,10 +17,6 @@ namespace Reportably.Services.Mappings
                     Summary = entity.Summary,
                     Author = entity.Author,
                     PublicationDate = entity.PublicationDate,
-                    CreatedOn = entity.CreatedOn,
-                    ModifiedOn = entity.ModifiedOn,
-                    DeletedOn = entity.DeletedOn,
-                    IsDeleted = entity.IsDeleted,
                     DownloadCount = entity.DownloadCount
                 }
                 : null;
@@ -38,11 +32,7 @@ namespace Reportably.Services.Mappings
                     Summary = model.Summary,
                     Author = model.Author,
                     PublicationDate = model.PublicationDate,
-                    CreatedOn = model.CreatedOn,
-                    ModifiedOn = model.ModifiedOn,
-                    DeletedOn = model.DeletedOn,
-                    IsDeleted = model.IsDeleted,
-                    DownloadCount = model.DownloadCount
+                    DownloadCount = model.DownloadCount,
                 }
                 : null;
         }

@@ -1,10 +1,9 @@
-﻿using Reportably.Entities.Contracts;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Reportably.Entities
 {
-    public class ReportEntity : IAuditable, IDeletable
+    public class ReportEntity
     {
         [Key]
         public Guid Id { get; set; }
@@ -23,19 +22,6 @@ namespace Reportably.Entities
         [Required]
         [MaxLength(100)]
         public string Author { get; set; }
-
-        //[Required]
-        //public string UserId { get; set; }
-
-        //public User User { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
-
-        public DateTime? CreatedOn { get; set; }
-
-        public bool IsDeleted { get ; set; }
-       
-        public DateTime? DeletedOn { get; set; }
 
         public Guid UploadedFile { get; set; }
 
