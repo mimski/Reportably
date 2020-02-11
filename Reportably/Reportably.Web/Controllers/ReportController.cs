@@ -49,9 +49,15 @@ namespace Reportably.Web.Areas.Reports.Controllers
                 //throw new ArgumentException("Invalid input!");
                 return this.View();
             }
-            if (reportViewModel.File.ContentType == null || reportViewModel.File.ContentType != "application/pdf")
+            if (reportViewModel.File == null)
             {
                 this.ModelState.AddModelError(string.Empty, "Please upload .pdf file");
+                return this.View();
+            }
+            else if (reportViewModel.File.ContentType != "application/pdf")
+            {
+                this.ModelState.AddModelError(string.Empty, "Please upload .pdf file");
+                return this.View();
             }
 
             var report = await this.reportService.AddAsync(reportViewModel.ToServiceModel(), cancellationToken);
