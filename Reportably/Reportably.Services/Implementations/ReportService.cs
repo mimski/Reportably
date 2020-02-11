@@ -5,6 +5,7 @@ using Reportably.Services.Models;
 using Reportably.Web.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -54,6 +55,21 @@ namespace Reportably.Services.Implementations
             {
                 return false;
             }
+        }
+
+        public async Task<ReportSystem> GetTotalReportsbCountAsync(CancellationToken cancellationToken)
+        {
+            var query = from reports in this.context.Reports
+
+                        select reports.Id;
+            var result = await query.CountAsync(cancellationToken);
+            
+            var reportSystem = new ReportSystem
+            {
+               TotalReports = result
+            };
+
+            return reportSystem;
         }
     }
 }
